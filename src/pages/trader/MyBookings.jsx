@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import {
   IconSearch,
   IconFilter,
@@ -21,7 +22,7 @@ export default function MyBookings() {
       setLoading(true);
       try {
         const res = await api.get('/bookings/my');
-        setBookings(res.data || []);
+        setBookings(toArray(res.data));
       } catch (err) {
         console.warn('Failed to load trader bookings:', err);
       } finally {

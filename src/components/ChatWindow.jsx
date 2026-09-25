@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { wsService } from '../services/websocket';
 import api from '../services/api';
+import { toArray } from '../services/response';
 import { IconSend, IconMessage2, IconWifi, IconFileInvoice } from '@tabler/icons-react';
 
 export default function ChatWindow({
@@ -35,7 +36,7 @@ export default function ChatWindow({
       try {
         const res = await api.get(`/chat/history?withUserId=${partnerId}&bookingId=${bookingId || ''}`);
         if (isMounted) {
-          setMessages(res.data || []);
+          setMessages(toArray(res.data));
         }
       } catch (err) {
         console.warn('Failed to load chat history:', err);

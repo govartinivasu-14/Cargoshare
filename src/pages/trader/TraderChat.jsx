@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../services/api';
 import ChatWindow from '../../components/ChatWindow';
+import { toArray } from '../../services/response';
 import { IconMessage2, IconShip, IconTrain, IconTruck } from '@tabler/icons-react';
 
 export default function TraderChat() {
@@ -11,7 +12,7 @@ export default function TraderChat() {
   const [error, setError] = useState('');
   useEffect(() => {
     api.get('/bookings/my').then(r => {
-      const rows = r.data
+      const rows = toArray(r.data)
         .filter(b => b.providerId)
         .map(b => ({
           id: b.providerId,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
+import { toArray } from '../../services/response';
 import { wsService } from '../../services/websocket';
 import { useAuth } from '../../context/AuthContext';
 import SearchFilters from '../../components/SearchFilters';
@@ -32,7 +33,7 @@ export default function SearchContainers() {
 
       const res = await api.get(`/containers/search?${params.toString()}`);
       // Sort by match score descending
-      const sorted = (res.data || []).sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
+      const sorted = toArray(res.data).sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
       setContainers(sorted);
     } catch (err) {
       setError(err.response?.data?.message || 'Unable to load live availability. Please retry.');

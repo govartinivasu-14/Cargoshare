@@ -6,6 +6,7 @@ import DashboardStatCard from '../../components/DashboardStatCard';
 import StatusBadge from '../../components/StatusBadge';
 import CapacityBar from '../../components/CapacityBar';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import {
   IconShip,
   IconPlus,
@@ -32,11 +33,12 @@ export default function ProviderDashboard() {
       setLoading(true);
       try {
         const [cRes, bRes] = await Promise.all([
-          api.get('/provider/dashboard').then(r => { setProviderStatus(r.data.providerStatus); return { data: r.data.containers }; }),
+          api.get('/provider/dashboard'),
           api.get('/bookings/provider')
         ]);
-        setContainers(cRes.data || []);
-        setBookings(bRes.data || []);
+        setProviderStatus(cRes.data?.providerStatus);
+        setContainers(toArray(cRes.data?.containers));
+        setBookings(toArray(bRes.data));
       } catch (err) {
         console.warn('Failed to load provider metrics:', err);
       } finally {

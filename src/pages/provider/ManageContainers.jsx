@@ -4,6 +4,7 @@ import api from '../../services/api';
 import CapacityBar from '../../components/CapacityBar';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import {
   IconPlus,
   IconEdit,
@@ -30,8 +31,8 @@ export default function ManageContainers() {
   const fetchContainers = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/provider/dashboard').then(r => ({ data: r.data.containers }));
-      setContainers(res.data || []);
+      const res = await api.get('/provider/dashboard');
+      setContainers(toArray(res.data?.containers));
     } catch (err) {
       console.warn('Failed to load fleet:', err);
     } finally {

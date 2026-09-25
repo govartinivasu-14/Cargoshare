@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import {
   IconShieldCheck,
   IconClock,
@@ -21,7 +22,7 @@ export default function ProviderApplications() {
     try {
       const url = status === 'ALL' ? '/admin/providers' : `/admin/providers?status=${status}`;
       const res = await api.get(url);
-      setProviders(res.data || []);
+      setProviders(toArray(res.data));
     } catch (err) {
       console.warn('Failed to load applications:', err);
     } finally {

@@ -4,6 +4,7 @@ import api from '../../services/api';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
 import ConfirmDialog from '../../components/ConfirmDialog';
+import { toArray } from '../../services/response';
 import {
   IconTruckDelivery,
   IconCheck,
@@ -25,7 +26,7 @@ export default function ProviderBookings() {
     setLoading(true);
     try {
       const res = await api.get('/bookings/provider');
-      setBookings(res.data || []);
+      setBookings(toArray(res.data));
     } catch (err) {
       console.warn('Failed to fetch provider bookings:', err);
     } finally {

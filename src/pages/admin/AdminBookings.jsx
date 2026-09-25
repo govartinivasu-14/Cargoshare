@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import { IconFileInvoice, IconFilter } from '@tabler/icons-react';
 
 export default function AdminBookings() {
@@ -14,7 +15,7 @@ export default function AdminBookings() {
       setLoading(true);
       try {
         const res = await api.get('/admin/bookings');
-        setBookings(res.data || []);
+        setBookings(toArray(res.data));
       } catch (err) {
         console.warn('Failed to load platform bookings:', err);
       } finally {

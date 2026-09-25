@@ -3,6 +3,7 @@ import api from '../../services/api';
 import DashboardStatCard from '../../components/DashboardStatCard';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import {
   IconCreditCard,
   IconCheck,
@@ -21,7 +22,7 @@ export default function PaymentMonitoring() {
       setLoading(true);
       try {
         const res = await api.get('/admin/payments');
-        setPayments(res.data || []);
+        setPayments(toArray(res.data));
       } catch (err) {
         console.warn('Failed to load payments:', err);
       } finally {

@@ -14,6 +14,7 @@ import {
 import ContainerFillGraphic from '../../components/ContainerFillGraphic';
 import ContainerCard from '../../components/ContainerCard';
 import api from '../../services/api';
+import { toArray } from '../../services/response';
 
 export default function Home() {
   const [featuredContainers, setFeaturedContainers] = useState([]);
@@ -23,7 +24,7 @@ export default function Home() {
     const fetchFeatured = async () => {
       try {
         const res = await api.get('/containers/search');
-        setFeaturedContainers(res.data.slice(0, 3));
+        setFeaturedContainers(toArray(res.data).slice(0, 3));
       } catch (err) {
         console.warn('Could not load containers:', err);
       } finally {

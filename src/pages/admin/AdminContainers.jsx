@@ -3,6 +3,7 @@ import api from '../../services/api';
 import CapacityBar from '../../components/CapacityBar';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import { IconShip, IconFilter } from '@tabler/icons-react';
 
 export default function AdminContainers() {
@@ -15,7 +16,7 @@ export default function AdminContainers() {
       setLoading(true);
       try {
         const res = await api.get('/admin/containers');
-        setContainers(res.data || []);
+        setContainers(toArray(res.data));
       } catch (err) {
         console.warn('Failed to load containers:', err);
       } finally {

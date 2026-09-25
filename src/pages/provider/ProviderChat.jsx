@@ -2,6 +2,7 @@ import api from '../../services/api';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import ChatWindow from '../../components/ChatWindow';
+import { toArray } from '../../services/response';
 import { IconMessage2, IconUser, IconBox } from '@tabler/icons-react';
 
 export default function ProviderChat() {
@@ -11,7 +12,7 @@ export default function ProviderChat() {
   const [error, setError] = useState('');
   useEffect(() => {
     api.get('/bookings/provider').then(r => {
-      const rows = r.data.map(b => ({ id: b.traderId, name: b.traderName, company: b.traderName, mode: b.mode, bookingId: b.id, containerId: b.containerId, spaceBooked: b.spaceRequired + ' CBM' }));
+      const rows = toArray(r.data).map(b => ({ id: b.traderId, name: b.traderName, company: b.traderName, mode: b.mode, bookingId: b.id, containerId: b.containerId, spaceBooked: b.spaceRequired + ' CBM' }));
       setTraders(rows); setSelectedTrader(rows[0] || null);
     }).catch(() => setError('Unable to load conversations. Please retry.'));
   }, []);

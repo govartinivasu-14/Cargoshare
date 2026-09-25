@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import { IconUsers, IconFilter, IconMail, IconPhone, IconShield } from '@tabler/icons-react';
 
 export default function ManageUsers() {
@@ -14,7 +15,7 @@ export default function ManageUsers() {
       setLoading(true);
       try {
         const res = await api.get('/admin/users');
-        setUsers(res.data || []);
+        setUsers(toArray(res.data));
       } catch (err) {
         console.warn('Failed to load users:', err);
       } finally {

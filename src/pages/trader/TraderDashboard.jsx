@@ -5,6 +5,7 @@ import api from '../../services/api';
 import DashboardStatCard from '../../components/DashboardStatCard';
 import StatusBadge from '../../components/StatusBadge';
 import EmptyState from '../../components/EmptyState';
+import { toArray } from '../../services/response';
 import {
   IconBoxSeam,
   IconClock,
@@ -24,7 +25,7 @@ export default function TraderDashboard() {
     const fetchBookings = async () => {
       try {
         const res = await api.get('/bookings/my');
-        setBookings(res.data || []);
+        setBookings(toArray(res.data));
       } catch (err) {
         console.warn('Failed to load trader bookings:', err);
       } finally {
