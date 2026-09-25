@@ -33,9 +33,10 @@ This repository includes `vercel.json` for client-side route rewrites. Deploy th
 ```text
 VITE_API_BASE_URL=https://your-public-backend.example.com/api
 VITE_WS_URL=https://your-public-backend.example.com/ws
+BACKEND_URL=https://your-public-backend.example.com
 ```
 
-The Spring Boot backend must run separately on a service that supports Java and WebSockets. Configure its CORS allowed origins with the deployed Vercel URL, set `JWT_SECRET` to a private value, and use `SEED_DEMO=false` for a non-demo deployment.
+The Vercel `api/[...path].js` function forwards HTTP API requests to `BACKEND_URL`, including trader/provider registration and login. The Spring Boot backend must run separately on a service that supports Java and WebSockets. Configure its CORS allowed origins with the deployed Vercel URL, set `JWT_SECRET` to a private value, and use `SEED_DEMO=false` for a non-demo deployment.
 
 ## Demo accounts
 

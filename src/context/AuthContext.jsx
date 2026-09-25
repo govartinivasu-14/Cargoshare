@@ -74,7 +74,8 @@ export function AuthProvider({ children }) {
       localStorage.setItem('cargoshare_user', JSON.stringify(userData));
       return { success: true, user: userData };
     } catch (err) {
-      return { success: false, message: err.response?.data?.message || 'Registration failed' };
+      const responseMessage = err.response?.data?.message || err.response?.data?.error;
+      return { success: false, message: responseMessage || err.message || 'Registration failed' };
     } finally {
       setLoading(false);
     }
