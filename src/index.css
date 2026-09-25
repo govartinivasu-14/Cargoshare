@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-port-light text-port-dark font-body;
+    background-color: #F3EFE6;
+    color: #0F1B2E;
+  }
+
+  /* Manifest tabular figures */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Stamped status badge styling */
+.badge-stamped {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  line-height: 1.1;
+  border: 1px solid currentColor;
+}
+
+/* Ledger row styling */
+.ledger-row {
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.ledger-row:hover {
+  background-color: rgba(15, 27, 46, 0.03);
+}
+
+/* Operational grid borders */
+.port-border {
+  border-color: #5B6670;
+}
+
+/* Custom Scrollbar for ops screens */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #E7E2D6;
+}
+::-webkit-scrollbar-thumb {
+  background: #8A95A0;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5B6670;
+}
